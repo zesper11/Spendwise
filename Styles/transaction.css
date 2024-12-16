@@ -1,0 +1,13 @@
+header{
+    display: inline;
+}
+
+.transaction-item{
+    width: 95vw;
+    height: 50px;
+    background-color: var(--secondary-color);
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    margin-top: 20px;
+}

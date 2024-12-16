@@ -1,0 +1,122 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color: #59afa7;
+}
+
+.quick-info{
+    text-align: center;
+    font-size: 50px;
+    margin-top: 5vh;
+}
+
+.quick-info i{
+    color: var(--text-dark);
+    font-size: 40px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.budget-info-home {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 5px;
+    line-height: 1; 
+  }
+
+  .weekly-stats{
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    width: 100vw;
+    height: 70vh;
+    background-color: var( --background-light);
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .input-section-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 30px;
+    position: absolute;
+    right: 20px;
+    bottom: 12vh;
+    color: var(--text-light);
+  }
+
+  .input-section{
+    display: none;
+  }
+  
+  .input-section{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-light);
+    position: absolute;
+    z-index: 10;
+    top: 0px;
+    right: 0px;
+    text-align: center;
+    margin: auto;
+  }
+
+  .input-section{
+    text-align: center;
+  }
+
+  .input-title{
+    width: 90vw;
+    height: 7vh;
+    margin: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--border-accent);
+  }
+
+  .input-number{
+    height: 7vh;
+    width: 90vw;
+    border-radius: 10px;
+    border: 2px solid var(--border-accent);
+    margin: 10px;
+  }
+
+  .input-category{
+    margin: 10px;
+    height: 7vh;
+    width: 90%;
+    border-radius: 10px;
+    border: 2px solid var(--border-accent);
+  }
+
+  .date-input{
+    margin: 10px;
+    height: 7vh;
+    width: calc(90vw - 7px);
+    border-radius: 10px;
+    border: 2px solid var(--border-accent);
+    padding: 5px;
+  }
+
+  .save-transaction{
+    width: 90vw;
+    height: 7vh;
+    font-size: 100%;
+    margin: 10px;
+  }
+
+  .disc-input{
+    margin: 10px;
+    height: 14vh;
+    width: 90vw;
+    border-radius: 10px;
+    border: 2px solid var(--border-accent);
+    padding: 5px;
+  }

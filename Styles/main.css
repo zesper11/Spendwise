@@ -1,0 +1,108 @@
+/* importing google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    /* Primary Colors */
+    --primary-color: #6BB6A4; /* Soft Teal */
+    --secondary-color: #EDEFF1; /* Light Gray */
+    --accent-color: #FFA47E; /* Soft Coral/Orange Accent */
+    --text-dark: #333333; /* Dark Text for better contrast */
+    --text-light: #FFFFFF; /* Light text for highlights */
+  
+    /* Background Colors */
+    --background-light: #ebebeb; /* Soft White for Background */
+    --background-nav: #ffffff; /* Card Background Color */
+    --border-color: #D9E2E9; /* Light Border/Separator Color */
+    --border-accent: #6BB6A4; /* Light Border/Separator Color */
+  
+    /* Highlights and Buttons */
+    --button-primary: #6BB6A4; /* Teal Buttons */
+    --button-hover: #5DA492; /* Slightly Darker Teal for Hover Effect */
+    --button-disabled: #f5fffe; /* Muted Teal for Disabled State */
+  
+    /* Chart and Graph Colors */
+    --chart-expense: #FFA47E; /* Expense - Coral */
+    --chart-income: #88C999; /* Income - Soft Green */
+    --chart-category-1: #6BB6A4; /* Teal */
+    --chart-category-2: #FFC66E; /* Yellow/Orange */
+    --chart-category-3: #FF9AA2; /* Soft Red/Pink */
+  
+    /* Shadows */
+    --box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Soft Shadow */
+  }  
+
+*{
+    font-family: poppins;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.small-text{
+    font-size: 10px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+nav{
+    width: 100vw;
+    height: 10vh;
+    position: absolute;
+    bottom: 0px;
+    background-color: var(--background-nav);
+    box-shadow: var(--box-shadow);
+}
+
+button{
+    background-color: var(--button-primary);
+    border: none;
+    transition-duration: 0.2s;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+button:hover{
+    background-color: var(--button-hover);
+}
+
+h3{
+    text-align: center;
+    margin-top: 10px;
+    color: var(--text-dark);
+}
+
+h1{
+    font-size: 17px;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.back-arrow-header{
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+body{
+    background-color: var(--background-light);
+}
+
+nav i{
+    color: var(--button-primary);
+    margin: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    transition-duration: 0.2s;
+}
+
+nav i:hover{
+    color: var(--button-hover);
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+}

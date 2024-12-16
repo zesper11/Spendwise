@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- linking font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- main css -->
+     <link rel="stylesheet" href="/Styles/main.css">
+    <!-- page css -->
+    <link rel="stylesheet" href="/Styles/index.css">
+</head>
+<body>
+    <div class="quick-info">
+        <p class="small-text">Total balance this month</p>
+        <p class="budget-info-home">$2000</p>
+    </div>
+    <section class="weekly-stats">
+        <h3>This week</h3>
+        <button class="input-section-btn" 
+        onclick="document.querySelector('.input-section').style.display = 'block';">+</button>
+
+    </section>
+    <nav>
+        <i class="fa-solid fa-house"></i>
+        <i class="fa-solid fa-wallet"></i>
+        <i class="fa-solid fa-chart-simple"></i>
+        <i class="fa-solid fa-user"></i>
+    </nav>
+    <!-- User Input Section -->
+    <div class="input-section">
+        <h3>Add Transactions</h3>
+
+        <!-- title input -->
+        <input type="text" placeholder="  Enter title (up to 25 characters)" class="input-title">
+        
+            <!-- Number Input -->
+            <input class="input-number" type="number" placeholder="  your budget here" min="1" />
+
+              <select class="input-category">
+                <optgroup label="Expenses">
+                  <option value="rent">🏠 Rent</option>
+                  <option value="food">🍕 Food</option>
+                  <option value="transport">🚗 Transport</option>
+                  <option value="utilities">💡 Utilities</option>
+                  <option value="entertainment">🎮 Entertainment</option>
+                </optgroup>
+                <optgroup label="Incomes">
+                  <option value="salary">💼 Salary</option>
+                  <option value="freelance">🖥️ Freelance</option>
+                  <option value="investment">📈 Investment</option>
+                  <option value="gifts">🎁 Gifts</option>
+                  <option value="other-income">💰 Other Income</option>
+                </optgroup>
+              </select>
+          <input type="date" class="dateInput date-input" value="" />
+          <input type="text" class="disc-input">
+        <button class="save-transaction btn" onclick="document.querySelector('.input-section').style.display = 'none';">Save</button>
+    </div>
+    <!-- page script -->
+    <script src="/Scripts/index.js"></script>
+      
+</body>
+</html>
