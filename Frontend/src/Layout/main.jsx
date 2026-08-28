@@ -14,7 +14,7 @@ export const Main = () => {
 
   return (
     <div className="layout">
-      <Nav />
+      <Nav username />
       <h1>Hello {username}</h1>
       <main>
         <Outlet />
