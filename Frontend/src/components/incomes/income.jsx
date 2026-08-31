@@ -10,7 +10,7 @@ const Incomes = () => {
       description: e.target.description.value,
     };
 
-    await fetch("http://localhost:5000/api/v1/add-expense", {
+    await fetch("http://localhost:5000/api/v1/add-income", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

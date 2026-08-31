@@ -1,5 +1,11 @@
+import LineChart from "../diagrams/lineChart.jsx";
+
 const Transctions = () => {
-  return <div></div>;
+  return (
+    <div>
+      <LineChart />
+    </div>
+  );
 };
 
 export default Transctions;
