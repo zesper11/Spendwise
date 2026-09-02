@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
-import "./layout.css";
+import "./layout-new.css";
 // import Expenses from "../expenses/expenses";
 // import Income from "../incomes/income";
 // import Transctions from "../transactions/transcations";

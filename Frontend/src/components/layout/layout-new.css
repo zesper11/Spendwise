@@ -1,38 +1,20 @@
 /* ==========================================
-   APP LAYOUT STYLES
+   LAYOUT STYLES - CLEAN & MINIMAL
    ========================================== */
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
 
 .app-shell {
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--bg) 0%, #f9f9f9 100%);
-  gap: 0;
+  background: var(--bg);
 }
 
 .main-content {
   flex: 1;
   overflow-y: auto;
-  background: var(--bg);
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 /* ==========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE
    ========================================== */
 
 @media (max-width: 768px) {
@@ -41,7 +23,6 @@ html, body {
   }
 
   .main-content {
-    min-height: 100vh;
+    min-height: calc(100vh - 80px);
   }
 }
-

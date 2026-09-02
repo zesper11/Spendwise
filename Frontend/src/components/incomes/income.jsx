@@ -1,3 +1,5 @@
+import "../forms-new.css";
+
 const Incomes = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,26 +20,73 @@ const Incomes = () => {
       body: JSON.stringify(income),
     });
 
+    e.target.reset();
     console.log(income);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="title" placeholder="Salary" />
+    <div className="form-container">
+      <div className="form-wrapper">
+        <form onSubmit={handleSubmit}>
+          <div className="form-header">
+            <h2>Add Income</h2>
+            <p>Record your earnings</p>
+          </div>
 
-      <input name="amount" placeholder="$4600" />
+          <div className="form-group">
+            <label htmlFor="title">Income Source</label>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              placeholder="e.g., Salary, Freelance, Bonus"
+              required
+            />
+          </div>
 
-      <select name="category">
-        <option value="food">Salary</option>
-        <option value="transport">Investment</option>
-      </select>
+          <div className="form-group">
+            <label htmlFor="amount">Amount</label>
+            <input
+              id="amount"
+              name="amount"
+              type="number"
+              placeholder="0.00"
+              step="0.01"
+              required
+            />
+          </div>
 
-      <input type="date" name="date" />
+          <div className="form-group">
+            <label htmlFor="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="salary">💼 Salary</option>
+              <option value="investment">📈 Investment</option>
+              <option value="freelance">💻 Freelance</option>
+              <option value="bonus">🎁 Bonus</option>
+              <option value="gift">🎀 Gift</option>
+              <option value="refund">↩️ Refund</option>
+              <option value="other">📌 Other</option>
+            </select>
+          </div>
 
-      <textarea name="description" />
+          <div className="form-group">
+            <label htmlFor="date">Date</label>
+            <input id="date" name="date" type="date" required />
+          </div>
 
-      <button type="submit">Add Incomes</button>
-    </form>
+          <div className="form-group">
+            <label htmlFor="description">Description (Optional)</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Add notes about this income..."
+            />
+          </div>
+
+          <button type="submit">Add Income</button>
+        </form>
+      </div>
+    </div>
   );
 };
 

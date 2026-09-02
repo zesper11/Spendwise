@@ -1,0 +1,407 @@
+/* ==========================================
+   DIAGRAMS & CHARTS STYLING
+   ========================================== */
+
+.diagrams-container {
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, var(--bg) 0%, #f9f9f9 100%);
+  min-height: 100vh;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================
+   CHARTS GRID
+   ========================================== */
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.chart-card {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.chart-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chart-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 1.5rem;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 2px;
+}
+
+/* ==========================================
+   LIST STYLING (for income/expense lists)
+   ========================================== */
+
+.data-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.data-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.data-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.data-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--border) 0%, #d0d0d0 100%);
+  border-radius: 10px;
+}
+
+.data-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 100%);
+}
+
+.data-item {
+  padding: 1rem;
+  background: var(--card-soft);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.data-item:hover {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateX(4px);
+}
+
+.data-item.income {
+  border-left-color: var(--success);
+}
+
+.data-item.expense {
+  border-left-color: var(--danger);
+}
+
+.data-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.data-item-title {
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.data-item-info {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.data-item-amount {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-left: 1rem;
+  min-width: 80px;
+  text-align: right;
+}
+
+.data-item.income .data-item-amount {
+  color: var(--success);
+}
+
+.data-item.expense .data-item-amount {
+  color: var(--danger);
+}
+
+/* ==========================================
+   STATISTICS SECTION
+   ========================================== */
+
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border-left: 5px solid transparent;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.stat-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.stat-card.income {
+  border-left-color: var(--success);
+  background: linear-gradient(135deg, rgba(22, 179, 100, 0.08) 0%, rgba(22, 179, 100, 0.02) 100%);
+}
+
+.stat-card.expense {
+  border-left-color: var(--danger);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.stat-card.income .stat-value {
+  background: linear-gradient(135deg, var(--success) 0%, #10a050 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-card.expense .stat-value {
+  background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   SECTION HEADERS
+   ========================================== */
+
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 0.5rem 0;
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ==========================================
+   EMPTY STATE
+   ========================================== */
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-muted);
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--border);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 1024px) {
+  .diagrams-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .charts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .chart-card {
+    padding: 1.75rem;
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .diagrams-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-card {
+    padding: 1.5rem;
+  }
+
+  .chart-title {
+    font-size: 1.15rem;
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+  }
+
+  .data-list {
+    max-height: 400px;
+  }
+
+  .data-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .data-item-amount {
+    align-self: flex-end;
+    margin-left: 0;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .diagrams-container {
+    padding: 1rem 0.75rem;
+  }
+
+  .charts-grid {
+    gap: 1rem;
+  }
+
+  .chart-card {
+    padding: 1.25rem;
+  }
+
+  .chart-title {
+    font-size: 1rem;
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .data-list {
+    max-height: 300px;
+  }
+
+  .data-item {
+    padding: 0.875rem;
+  }
+
+  .data-item-title {
+    font-size: 0.95rem;
+  }
+
+  .data-item-info {
+    font-size: 0.8rem;
+  }
+
+  .data-item-amount {
+    font-size: 0.9rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+
+  .empty-state-icon {
+    font-size: 2.5rem;
+  }
+}

@@ -1,0 +1,735 @@
+/* ==========================================
+   TRANSACTIONS COMPONENT - ENHANCED STYLING
+   ========================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+.transactions-container {
+  padding: 2.5rem;
+  background: linear-gradient(135deg, var(--bg) 0%, #f9f9f9 100%);
+  min-height: 100vh;
+  font-family: var(--font);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================
+   SUMMARY SECTION - KEY METRICS DISPLAY
+   ========================================== */
+
+.summary-section {
+  margin-bottom: 3.5rem;
+  display: grid;
+  grid-template-columns: 2fr 1.5fr;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+}
+
+.summary-card {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid transparent;
+  border-left: 6px solid transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.summary-card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px) scale(1.02);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.summary-card:hover::before {
+  opacity: 0.5;
+}
+
+.summary-card.income-card {
+  border-left-color: var(--success);
+  background: linear-gradient(135deg, rgba(22, 179, 100, 0.08) 0%, rgba(22, 179, 100, 0.02) 100%);
+}
+
+.summary-card.income-card:hover {
+  border-color: var(--success);
+  background: linear-gradient(135deg, rgba(22, 179, 100, 0.12) 0%, rgba(22, 179, 100, 0.04) 100%);
+}
+
+.summary-card.expense-card {
+  border-left-color: var(--danger);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
+}
+
+.summary-card.expense-card:hover {
+  border-color: var(--danger);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(239, 68, 68, 0.04) 100%);
+}
+
+.summary-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.summary-amount {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.summary-card.income-card .summary-amount {
+  color: var(--success);
+  background: linear-gradient(135deg, var(--success) 0%, #10a050 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.summary-card.expense-card .summary-amount {
+  color: var(--danger);
+  background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   NET WORTH / BALANCE SECTION
+   ========================================== */
+
+.net-worth-section {
+  background: linear-gradient(135deg, var(--card) 0%, #fafbfc 100%);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 28px rgba(139, 92, 246, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 2px solid rgba(139, 92, 246, 0.1);
+  border-top: 5px solid var(--primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.net-worth-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.net-worth-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 1.25rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.net-worth-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.net-worth-display.profit .status-badge {
+  background: linear-gradient(135deg, var(--success-light) 0%, rgba(22, 179, 100, 0.15) 100%);
+  color: var(--success);
+  border-color: rgba(22, 179, 100, 0.3);
+  box-shadow: 0 4px 12px rgba(22, 179, 100, 0.2);
+}
+
+.net-worth-display.loss .status-badge {
+  background: linear-gradient(135deg, var(--danger-light) 0%, rgba(239, 68, 68, 0.15) 100%);
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.status-badge:hover {
+  transform: scale(1.08);
+}
+
+.net-amount {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.net-worth-display.profit .net-amount {
+  background: linear-gradient(135deg, var(--success) 0%, #10a050 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.net-worth-display.loss .net-amount {
+  background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   TRANSACTIONS SECTIONS CONTAINER
+   ========================================== */
+
+.transactions-sections {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.transactions-section {
+  background: var(--card);
+  padding: 2.25rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.transactions-section:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 1.75rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.incomes-section .section-title::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 1.75rem;
+  background: linear-gradient(180deg, var(--success) 0%, #10a050 100%);
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(22, 179, 100, 0.3);
+}
+
+.expenses-section .section-title::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 1.75rem;
+  background: linear-gradient(180deg, var(--danger) 0%, #dc2626 100%);
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* ==========================================
+   TRANSACTIONS LIST WITH SCROLLBAR
+   ========================================== */
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.75rem;
+  flex: 1;
+}
+
+.transactions-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.transactions-list::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.transactions-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--border) 0%, #d0d0d0 100%);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.transactions-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 100%);
+}
+
+/* ==========================================
+   TRANSACTION CARD - INDIVIDUAL ITEMS
+   ========================================== */
+
+.transaction-card {
+  background: linear-gradient(135deg, var(--card-soft) 0%, #fbfbfb 100%);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border);
+  border-left: 5px solid transparent;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.transaction-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.3) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.transaction-card:hover {
+  background: linear-gradient(135deg, white 0%, #fcfcfc 100%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transform: translateX(6px) translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.transaction-card:hover::before {
+  opacity: 1;
+}
+
+.income-transaction {
+  border-left-color: var(--success);
+  border-color: rgba(22, 179, 100, 0.2);
+}
+
+.income-transaction:hover {
+  border-color: var(--success);
+  background: linear-gradient(135deg, rgba(22, 179, 100, 0.05) 0%, white 100%);
+}
+
+.expense-transaction {
+  border-left-color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.expense-transaction:hover {
+  border-color: var(--danger);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, white 100%);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  flex: 1;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.card-amount {
+  font-size: 1.15rem;
+  font-weight: 800;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  letter-spacing: -0.3px;
+}
+
+.income-amount {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--success) 0%, #10a050 100%);
+  box-shadow: 0 4px 12px rgba(22, 179, 100, 0.3);
+}
+
+.transaction-card.income-transaction:hover .income-amount {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(22, 179, 100, 0.4);
+}
+
+.expense-amount {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.transaction-card.expense-transaction:hover .expense-amount {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+}
+
+.card-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================
+   EMPTY STATE
+   ========================================== */
+
+.no-data {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN - TABLETS
+   ========================================== */
+
+@media (max-width: 1200px) {
+  .transactions-container {
+    padding: 2rem;
+  }
+
+  .summary-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .summary-card {
+    padding: 1.75rem;
+  }
+
+  .net-worth-section {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .transactions-container {
+    padding: 1.75rem;
+  }
+
+  .summary-section {
+    grid-template-columns: 1fr;
+  }
+
+  .transactions-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .net-amount {
+    font-size: 2.5rem;
+  }
+
+  .summary-amount {
+    font-size: 2rem;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN - MOBILE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .transactions-container {
+    padding: 1.25rem;
+  }
+
+  .summary-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 1.5rem;
+  }
+
+  .summary-amount {
+    font-size: 1.8rem;
+  }
+
+  .net-worth-section {
+    padding: 1.75rem;
+  }
+
+  .net-amount {
+    font-size: 2.25rem;
+  }
+
+  .transactions-sections {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .transactions-section {
+    padding: 1.75rem;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .transactions-list {
+    max-height: 500px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-amount {
+    align-self: flex-end;
+    padding: 0.45rem 0.9rem;
+    font-size: 1rem;
+  }
+
+  .transaction-card {
+    padding: 1.25rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN - SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 480px) {
+  .transactions-container {
+    padding: 1rem;
+  }
+
+  .summary-section {
+    margin-bottom: 2rem;
+  }
+
+  .summary-card {
+    padding: 1.25rem;
+  }
+
+  .summary-label {
+    font-size: 0.7rem;
+  }
+
+  .summary-amount {
+    font-size: 1.6rem;
+  }
+
+  .net-worth-section {
+    padding: 1.25rem;
+  }
+
+  .net-worth-label {
+    font-size: 0.75rem;
+  }
+
+  .net-amount {
+    font-size: 2rem;
+  }
+
+  .status-badge {
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .transactions-sections {
+    gap: 1.5rem;
+  }
+
+  .transactions-section {
+    padding: 1.25rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .transactions-list {
+    gap: 1rem;
+    max-height: 400px;
+  }
+
+  .transaction-card {
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+  }
+
+  .card-amount {
+    font-size: 0.95rem;
+  }
+
+  .card-description {
+    font-size: 0.85rem;
+  }
+
+  .no-data {
+    padding: 2rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ==========================================
+   EXTRA SMALL DEVICES
+   ========================================== */
+
+@media (max-width: 360px) {
+  .transactions-container {
+    padding: 0.75rem;
+  }
+
+  .summary-amount {
+    font-size: 1.5rem;
+  }
+
+  .net-amount {
+    font-size: 1.75rem;
+  }
+
+  .section-title {
+    font-size: 0.95rem;
+  }
+
+  .transaction-card {
+    padding: 0.9rem;
+  }
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+
+@media print {
+  .transactions-container {
+    background: white;
+  }
+
+  .transaction-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .summary-card:hover {
+    transform: none;
+  }
+}
