@@ -1,38 +1,136 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Filler,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { apiFetch } from "../../utils/api";
 import "./transcations-new.css";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Filler,
+);
 
 const Transctions = () => {
   const [income, setIncome] = useState([]);
 
-  const importIncome = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/v1/get-income");
-      const data = await response.json();
-
-      setIncome(data);
-    } catch {
-      console.error("error occurred");
-    }
-  };
-
   const [expense, setExpense] = useState([]);
 
-  const importExpense = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/v1/get-expenses");
-      const data = await response.json();
+  useEffect(() => {
+    let active = true;
+    Promise.all([apiFetch("/get-income"), apiFetch("/get-expenses")])
+      .then(([incomeData, expenseData]) => {
+        if (!active) return;
+        setIncome(incomeData);
+        setExpense(expenseData);
+      })
+      .catch((error) => console.error(error.message));
+    return () => {
+      active = false;
+    };
+  }, []);
 
-      setExpense(data);
-    } catch {
-      console.error("error occurred");
-    }
+  const cashflow = useMemo(() => {
+    const months = Array.from({ length: 6 }, (_, index) => {
+      const date = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() - 5 + index,
+        1,
+      );
+      return {
+        key: `${date.getFullYear()}-${date.getMonth()}`,
+        label: date.toLocaleDateString("en", { month: "short" }),
+        income: 0,
+        expense: 0,
+      };
+    });
+    const monthIndex = new Map(
+      months.map((month, index) => [month.key, index]),
+    );
+    [...income, ...expense].forEach((transaction) => {
+      const date = new Date(transaction.date);
+      const index = monthIndex.get(`${date.getFullYear()}-${date.getMonth()}`);
+      if (index === undefined) return;
+      if (transaction.type === "income")
+        months[index].income += Number(transaction.amount) || 0;
+      else months[index].expense += Number(transaction.amount) || 0;
+    });
+    return months;
+  }, [income, expense]);
+
+  const chartData = {
+    labels: cashflow.map((month) => month.label),
+    datasets: [
+      {
+        label: "Income",
+        data: cashflow.map((month) => month.income),
+        borderColor: "#268267",
+        backgroundColor: "#26826716",
+        pointBackgroundColor: "#268267",
+        pointRadius: 3,
+        tension: 0.35,
+        fill: true,
+      },
+      {
+        label: "Expenses",
+        data: cashflow.map((month) => month.expense),
+        borderColor: "#d8755f",
+        backgroundColor: "#d8755f10",
+        pointBackgroundColor: "#d8755f",
+        pointRadius: 3,
+        tension: 0.35,
+        fill: true,
+      },
+    ],
   };
 
-  useEffect(() => {
-    importIncome();
-    importExpense();
-  }, []);
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { intersect: false, mode: "index" },
+    plugins: {
+      legend: {
+        position: "top",
+        align: "end",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 7,
+          boxHeight: 7,
+          color: "#66736c",
+          font: { family: "Plus Jakarta Sans", size: 11 },
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) =>
+            `${context.dataset.label}: $${Number(context.raw).toFixed(2)}`,
+        },
+      },
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        border: { display: false },
+        ticks: { color: "#87918b" },
+      },
+      y: {
+        beginAtZero: true,
+        border: { display: false, dash: [3, 4] },
+        grid: { color: "#edf0ec" },
+        ticks: { color: "#87918b", callback: (value) => `$${value}` },
+      },
+    },
+  };
 
   let totalExpenseAmount = 0;
 
@@ -46,6 +144,14 @@ const Transctions = () => {
 
   return (
     <section className="transactions-container">
+      <header className="dashboard-heading">
+        <div>
+          <span className="dashboard-kicker">YOUR MONEY, AT A GLANCE</span>
+          <h1>Overview</h1>
+          <p>Income and spending, all in one place.</p>
+        </div>
+        <span className="dashboard-period">LAST 6 MONTHS</span>
+      </header>
       <div className="summary-section">
         <div className="summary-cards">
           <div className="summary-card income-card">
@@ -74,6 +180,19 @@ const Transctions = () => {
           </div>
         </div>
       </div>
+
+      <section className="cashflow-panel" aria-label="Income and expense chart">
+        <div className="cashflow-heading">
+          <div>
+            <h3>Cashflow</h3>
+            <p>Monthly income compared with expenses</p>
+          </div>
+          <span>6 MONTH TREND</span>
+        </div>
+        <div className="cashflow-chart">
+          <Line data={chartData} options={chartOptions} />
+        </div>
+      </section>
 
       <div className="transactions-sections">
         <div className="transactions-section incomes-section">

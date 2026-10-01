@@ -5,7 +5,7 @@ exports.addExpense = async (req, res) => {
     try {
         const { title, amount, category, date, description } = req.body
 
-        if(!title || !category || !description || !date){
+        if(!title || !category || !date){
             return res.status(400).json({message: 'You must fill all the required information'})
         }
 
@@ -14,10 +14,11 @@ exports.addExpense = async (req, res) => {
         }
 
         const expense = new Expense({
+            userId: req.userId,
             title,
             amount: Number(amount),
             category,
-            description,
+            description: description || '',
             date,
         })
 
@@ -31,7 +32,7 @@ exports.addExpense = async (req, res) => {
 
 exports.getExpense = async (req, res) => {
     try {
-        const expenses = await Expense.find().sort({ createdAt: -1 })
+        const expenses = await Expense.find({ userId: req.userId }).sort({ createdAt: -1 })
         return res.status(200).json(expenses)
     } catch (error) {
         return res.status(500).json({ message: 'Unable to fetch expense', error: error.message })
@@ -40,7 +41,7 @@ exports.getExpense = async (req, res) => {
 
 exports.deleteExpense = async (req, res) => {
     try {
-        const expense = await Expense.findByIdAndDelete(req.params.id)
+        const expense = await Expense.findOneAndDelete({ _id: req.params.id, userId: req.userId })
 
         if (!expense) {
             return res.status(404).json({ message: 'Expense not found' })

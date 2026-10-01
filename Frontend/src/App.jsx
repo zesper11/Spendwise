@@ -1,10 +1,7 @@
-import React from "react";
 import "./styles/globalStyles-new.css";
 import {
-  BrowserRouter,
-  Routes,
-  Route,
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 
@@ -12,17 +9,26 @@ import {
 import Layout from "./components/layout/layout";
 import Expenses from "./components/expenses/expenses";
 import Income from "./components/incomes/income";
-import Sidebar from "./components/sidebar/sidebar";
 import Transctions from "./components/transactions/transcations";
+import Auth from "./components/auth/auth";
+import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/useAuth";
+
+const ProtectedLayout = () => {
+  const { user, loading } = useAuth();
+  if (loading)
+    return <div className="app-loading">Opening your account...</div>;
+  return user ? <Layout /> : <Navigate to="/auth" replace />;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <ProtectedLayout />,
     children: [
       {
         index: true,
-        element: <Sidebar />,
+        element: <Navigate to="/transactions" replace />,
       },
       {
         path: "expenses",
@@ -38,17 +44,18 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/auth", element: <Auth /> },
   {
     path: "*",
-    element: <h1>Page Not found</h1>,
+    element: <Navigate to="/" replace />,
   },
 ]);
 
 const App = () => {
   return (
-    <div>
+    <AuthProvider>
       <RouterProvider router={router} />
-    </div>
+    </AuthProvider>
   );
 };
 

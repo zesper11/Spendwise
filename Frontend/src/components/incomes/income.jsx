@@ -1,4 +1,5 @@
 import "../forms-new.css";
+import { apiFetch } from "../../utils/api";
 
 const Incomes = () => {
   const handleSubmit = async (e) => {
@@ -12,16 +13,15 @@ const Incomes = () => {
       description: e.target.description.value,
     };
 
-    await fetch("http://localhost:5000/api/v1/add-income", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(income),
-    });
-
-    e.target.reset();
-    console.log(income);
+    try {
+      await apiFetch("/add-income", {
+        method: "POST",
+        body: JSON.stringify(income),
+      });
+      e.target.reset();
+    } catch (error) {
+      window.alert(error.message);
+    }
   };
 
   return (

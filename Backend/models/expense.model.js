@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const ExpenseSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true
+    },
     title:{
         type: String,
         required: true,
@@ -35,7 +41,7 @@ const ExpenseSchema = new mongoose.Schema({
 
     description:{
         type: String,
-        required: true,
+        default: '',
         maxLength: 200,
         trim: true,
     }

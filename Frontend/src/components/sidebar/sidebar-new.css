@@ -36,7 +36,12 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--border);
+  cursor: pointer;
 }
+
+.profile-upload { display: none; }
+.signout-button { align-self: flex-start; margin: auto 1.5rem 0; padding: 8px 0; border: 0; background: transparent; color: #78837c; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.signout-button:hover { color: #b14e3d; }
 
 .profile-text {
   display: flex;
@@ -131,6 +136,8 @@
     flex: 1;
     gap: 0.25rem;
   }
+
+  .signout-button { margin: 0; align-self: center; white-space: nowrap; }
 
   .nav-link {
     padding: 0.5rem 0.75rem;

@@ -7,6 +7,12 @@
   background: var(--bg);
 }
 
+.dashboard-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
+.dashboard-heading h1 { margin: 6px 0 4px; color: #1c2924; font-size: 29px; letter-spacing: 0; }
+.dashboard-heading p, .cashflow-heading p { color: #78837c; font-size: 13px; }
+.dashboard-kicker { color: #28745c; font-size: 10px; font-weight: 800; letter-spacing: 1.3px; }
+.dashboard-period { padding: 8px 10px; border: 1px solid var(--border); border-radius: 5px; color: #64716a; background: white; font-size: 10px; font-weight: 800; letter-spacing: .8px; }
+
 /* ==========================================
    SUMMARY SECTION
    ========================================== */
@@ -120,6 +126,12 @@
 .net-worth-display.loss .net-amount {
   color: var(--danger);
 }
+
+.cashflow-panel { margin: 0 0 2rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
+.cashflow-heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.cashflow-heading h3 { margin-bottom: 4px; color: #25332c; font-size: 15px; }
+.cashflow-heading > span { color: #89938d; font-size: 9px; font-weight: 800; letter-spacing: 1px; }
+.cashflow-chart { position: relative; height: 245px; }
 
 /* ==========================================
    TRANSACTIONS SECTIONS
@@ -287,6 +299,9 @@
 }
 
 @media (max-width: 768px) {
+  .transactions-container { padding: 1.25rem; }
+  .dashboard-heading h1 { font-size: 25px; }
+  .cashflow-chart { height: 210px; }
   .transactions-container {
     padding: 1rem;
   }

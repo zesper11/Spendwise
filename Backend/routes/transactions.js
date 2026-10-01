@@ -1,6 +1,9 @@
 const router = require('express').Router()
 const { addIncome, getIncome, deleteIncome } = require('../controller/income')
 const {addExpense, getExpense, deleteExpense} = require('../controller/expense')
+const auth = require('../middleware/auth')
+
+router.use(auth)
 
 
 router.post('/add-income', addIncome)

@@ -5,7 +5,7 @@ exports.addIncome = async (req, res) => {
     try {
         const { title, amount, category, date, description } = req.body
 
-        if(!title || !category || !description || !date){
+        if(!title || !category || !date){
             return res.status(400).json({message: 'You must fill all the required information'})
         }
 
@@ -14,10 +14,11 @@ exports.addIncome = async (req, res) => {
         }
 
         const income = new Income({
+            userId: req.userId,
             title,
             amount: Number(amount),
             category,
-            description,
+            description: description || '',
             date,
         })
 
@@ -31,7 +32,7 @@ exports.addIncome = async (req, res) => {
 
 exports.getIncome = async (req, res) => {
     try {
-        const incomes = await Income.find().sort({ createdAt: -1 })
+        const incomes = await Income.find({ userId: req.userId }).sort({ createdAt: -1 })
         return res.status(200).json(incomes)
     } catch (error) {
         return res.status(500).json({ message: 'Unable to fetch income', error: error.message })
@@ -40,7 +41,7 @@ exports.getIncome = async (req, res) => {
 
 exports.deleteIncome = async (req, res) => {
     try {
-        const income = await Income.findByIdAndDelete(req.params.id)
+        const income = await Income.findOneAndDelete({ _id: req.params.id, userId: req.userId })
 
         if (!income) {
             return res.status(404).json({ message: 'Income not found' })

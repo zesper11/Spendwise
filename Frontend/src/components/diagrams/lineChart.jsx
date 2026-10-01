@@ -1,41 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { apiFetch } from "../../utils/api";
 import "./diagrams-new.css";
 
 const LineChart = () => {
   const [income, setIncome] = useState([]);
-  const [currentMonthIncome, setCurrentMonthIncome] = useState([]);
 
   useEffect(() => {
     const importIncome = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/v1/get-income");
-        const data = await response.json();
-
-        setIncome(data);
-      } catch {
-        console.error("error occurred");
+        setIncome(await apiFetch("/get-income"));
+      } catch (error) {
+        console.error(error.message);
       }
     };
 
     importIncome();
   }, []);
 
-  useEffect(() => {
-    const currentMonthIncomeData = income.filter((inc) => {
-      if (!inc?.date) return false;
+  const currentMonthIncome = useMemo(
+    () =>
+      income.filter((inc) => {
+        if (!inc?.date) return false;
 
-      const date = new Date(inc.date);
+        const date = new Date(inc.date);
 
-      if (Number.isNaN(date.getTime())) return false;
+        if (Number.isNaN(date.getTime())) return false;
 
-      return (
-        date.getFullYear() === new Date().getFullYear() &&
-        date.getMonth() === new Date().getMonth() + 1
-      );
-    });
-
-    setCurrentMonthIncome(currentMonthIncomeData);
-  }, [income]);
+        return (
+          date.getFullYear() === new Date().getFullYear() &&
+          date.getMonth() === new Date().getMonth()
+        );
+      }),
+    [income],
+  );
 
   return (
     <div className="diagrams-container">

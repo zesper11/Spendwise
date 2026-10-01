@@ -1,13 +1,24 @@
 const mongoose  = require('mongoose')
 
+let connectionPromise;
+
 const db = async () => {
-    try{
-        mongoose.set('strictQuery', false)
-        await mongoose.connect(process.env.MONGO_URL)
-        console.log('Database working')
-    } catch (error){
-        console.log('and error occcured on Database connection Process')
+    if (mongoose.connection.readyState === 1) return mongoose.connection;
+    if (!process.env.MONGO_URL) throw new Error('MONGO_URL is not configured');
+
+    if (!connectionPromise) {
+        mongoose.set('strictQuery', false);
+        connectionPromise = mongoose.connect(process.env.MONGO_URL)
+            .then(() => {
+                console.log('Database working');
+                return mongoose.connection;
+            })
+            .catch((error) => {
+                connectionPromise = null;
+                throw error;
+            });
     }
+    return connectionPromise;
 }
 
 module.exports= {db}
